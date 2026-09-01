@@ -2,6 +2,15 @@
 
 **Contract · Receipt · Attestation · Warrant** — an open specification for cryptographic audit receipts that cover both application transactions and AI-inference decisions under one canonical shape.
 
+## Conformance levels
+
+CRAWCUS ships as a two-tier spec so implementers can pick the level that matches their integration surface:
+
+- **CRAWCUS-Core-1.0** — the 4 primitives above (Contract · Receipt · Attestation · Warrant). Sufficient for hash-chained audit interop, CloudEvents/JWT/SD-JWT-style payload embedding, and federated-learning per-node receipts. Regulator 5-minute grok. The reference `clients/flower/` implementation is Core.
+- **CRAWCUS-Extended-1.0** — Core + five additional primitives (Disclosure · Consent · Lineage · HumanOversight · Tool-use). Required for AACI-shape regulator compliance (GDPR Art. 22 automated-decision-making, EU AI Act Art. 14/50 human-oversight + deepfake-disclosure, FERPA §99.31 disclosure). The `regulations-{gdpr,ferpa,eu-ai-act}/` bundles implement Extended where their regulator requires it.
+
+Both tiers ship in this repository. Implementers declare their conformance level in their package README + `pyproject.toml`/`package.json` `crawcus.conformance` field.
+
 ---
 
 ## The problem CRAWCUS answers
