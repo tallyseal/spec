@@ -1,0 +1,999 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open specification for cryptographic audit receipts covering both application transactions and AI-inference decisions under one canonical shape.">
+      
+      
+        <meta name="author" content="Paul Wander + CRAWCUS contributors">
+      
+      
+        <link rel="canonical" href="https://tallyseal.org/engineering/ratchet-disciplines/">
+      
+      
+        <link rel="prev" href="../../canon/decision-lens/">
+      
+      
+      <link rel="icon" href="../../../branding/crawcus-seal-compact.svg">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Ratchet disciplines - CRAWCUS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#engineering-ratchet-disciplines" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CRAWCUS" class="md-header__button md-logo" aria-label="CRAWCUS" data-md-component="logo">
+      
+  <img src="../../../branding/crawcus-seal-compact.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CRAWCUS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ratchet disciplines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tallyseal/spec" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tallyseal/spec
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Overview
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../spec/crawcus-format/" class="md-tabs__link">
+        Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../canon/architecture-primitives/" class="md-tabs__link">
+        Canon
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Engineering
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CRAWCUS" class="md-nav__button md-logo" aria-label="CRAWCUS" data-md-component="logo">
+      
+  <img src="../../../branding/crawcus-seal-compact.svg" alt="logo">
+
+    </a>
+    CRAWCUS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tallyseal/spec" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tallyseal/spec
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Specification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Specification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spec/crawcus-format/" class="md-nav__link">
+        Format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spec/crawcus-contracts/" class="md-nav__link">
+        Contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spec/chain-of-custody-envelope/" class="md-nav__link">
+        Chain of custody
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Canon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Canon
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../canon/architecture-primitives/" class="md-nav__link">
+        Architecture primitives
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../canon/decision-lens/" class="md-nav__link">
+        Decision lens
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Engineering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Engineering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ratchet disciplines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ratchet disciplines
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#wired-status-legend" class="md-nav__link">
+    Wired-status legend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-23-disciplines" class="md-nav__link">
+    The 23 disciplines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-ratchet-artifact" class="md-nav__link">
+    The ratchet artifact
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-rules-out" class="md-nav__link">
+    What this rules out
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-requires-from-the-founder" class="md-nav__link">
+    What this requires from the founder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-policy" class="md-nav__link">
+    Process &gt; policy
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#wired-status-legend" class="md-nav__link">
+    Wired-status legend
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-23-disciplines" class="md-nav__link">
+    The 23 disciplines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-ratchet-artifact" class="md-nav__link">
+    The ratchet artifact
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-rules-out" class="md-nav__link">
+    What this rules out
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-requires-from-the-founder" class="md-nav__link">
+    What this requires from the founder
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-policy" class="md-nav__link">
+    Process &gt; policy
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/tallyseal/spec/edit/main/docs/engineering/ratchet-disciplines.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<!--
+SPDX-FileCopyrightText: 2026 Paul Wander + CRAWCUS contributors
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+<h1 id="engineering-ratchet-disciplines">Engineering ratchet disciplines<a class="headerlink" href="#engineering-ratchet-disciplines" title="Permalink to this section">&para;</a></h1>
+<blockquote>
+<p>A ratchet has one direction. Once installed, the bar only rises.
+For a compliance product, regression = lost customers + regulatory exposure.</p>
+</blockquote>
+<p>Disciplines 1–12 are <em>invariants of correctness</em> (the original ratchet).
+Disciplines 13–17 are <em>invariants of session hygiene</em> — inherited from
+sister projects (<code>HF</code>, <code>ep</code>, <code>gps-action</code>) where they're load-bearing for
+multi-session, parallel-agent work.
+Disciplines 18–19 added 2026-05-20 — capability-based security +
+total-function discipline.
+Disciplines 20–22 added 2026-05-21 — discipline-wiring sprint;
+explicit throw discipline, fast-lane commit hygiene, post-commit
+async test safety net.
+Discipline 23 added 2026-05-21 — CRAWCUS-vs-Tallyseal boundary;
+preserves vendor-neutrality of the open spec ahead of Y1 H2
+structured spin-out (per decision-log B1.3b).</p>
+<h2 id="wired-status-legend">Wired-status legend<a class="headerlink" href="#wired-status-legend" title="Permalink to this section">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅</td>
+<td>Wired + enforced (CI / pre-commit / lint rule fires on violation)</td>
+</tr>
+<tr>
+<td>⚠️</td>
+<td>Documented + partially enforced (gap surfaces somewhere but not everywhere)</td>
+</tr>
+<tr>
+<td>📋</td>
+<td>Documented; manual discipline (no automation possible / available yet)</td>
+</tr>
+<tr>
+<td>⏳</td>
+<td>Pending wiring (next sprint)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-23-disciplines">The 23 disciplines<a class="headerlink" href="#the-23-disciplines" title="Permalink to this section">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Discipline</th>
+<th>Wired</th>
+<th>Practice</th>
+<th>Why it ratchets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>TypeScript strict, zero <code>any</code>, zero <code>@ts-ignore</code></strong></td>
+<td>✅</td>
+<td><code>tsconfig.base.json</code> strict+exactOptionalPropertyTypes+noUncheckedIndexedAccess. Pre-commit <code>pnpm typecheck</code>. Lint <code>@typescript-eslint/no-explicit-any</code>. CI gate.</td>
+<td>Type erosion is #1 maintenance debt; start at zero, count is the metric</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Property-based + mutation testing on compliance code</strong></td>
+<td>⚠️→✅</td>
+<td>Property-based: fast-check used in core (canonical-json + hash-chain). Mutation: Stryker config at <code>stryker.conf.json</code>; <code>pnpm test:mutation</code>; <code>.github/workflows/mutation.yml</code> runs on PR + nightly. <strong>Two thresholds</strong>: (a) <code>thresholds.break: 70</code> on the <strong>inclusive</strong> score (Stryker-enforced workspace gate); (b) <strong>discipline target ≥80% covered AGGREGATE per workspace mutate-set</strong> (not per-file). Per-file scores below 80% covered are acceptable when the aggregate clears 80% — clarified 2026-06-04 in lighthouse review of PR #63 / TKT-ADMIN-EMITTER-ROUNDTRIP (aggregate 80.10% covered, <code>parse.ts</code> 77.66%, <code>roundtrip.ts</code> 60%) so Sprint E precedent doesn't quietly lower the bar. Per-ticket TKT-spec "Stryker ≥80% covered on <code>src/{a,b,c}.ts</code>" wording reads as aggregate across that mutate-set unless explicitly stated per-file.</td>
+<td>Compliance code has too many edge cases for example-based tests</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Deterministic reducer (pure, hash-tested)</strong></td>
+<td>⚠️</td>
+<td><code>assertReducerDeterminism</code> in <code>@tallyseal/core</code>; tested. CI gate via Stryker on <code>reducer/</code>.</td>
+<td>Single load-bearing correctness property. Auditors will recompute.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Forward-only migrations + two-release deprecation window</strong></td>
+<td>⚠️</td>
+<td><code>@tallyseal/prisma-adapter</code> migration runner enforces SHA-256 checksum immutability (refuses re-apply of edited files). No broader workspace-wide auto-check yet.</td>
+<td>Eliminates data-loss + downtime. Customers can replay history forever.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Conventional + signed commits, signed tags, SBOM on every build</strong></td>
+<td>⚠️→✅</td>
+<td>Conventional: commitlint pre-commit hook ✅. Signed: documented; user-side <code>git config commit.gpgsign true</code> (out of repo's control). SBOM: <code>.github/workflows/security.yml</code> generates CycloneDX SBOM on every push + archives as artifact.</td>
+<td>Supply chain attacks are the realistic threat; SBOM diff = auditor-recognised chain of custody</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Trunk-based, feature-flagged, no long-lived branches</strong></td>
+<td>✅</td>
+<td>Trunk-based; feature flags not yet needed.</td>
+<td>Long branches → merge hell + stealth regressions</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Eval corpus regression — production transcripts as fixtures</strong></td>
+<td>⚠️</td>
+<td><code>@tallyseal/extractor</code> ships <code>runEvalCorpus</code> + <code>checkRegression</code>; CI runs on PRs touching extractor. Per-spec pass-rate gate at 0.5pp tolerance. (No production corpus yet — Q7 LOCKED: synthetic-only v0.0.1.)</td>
+<td>The eval corpus IS the moat. Regression metric → it compounds.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Blameless postmortem in 72h with structural action item</strong></td>
+<td>📋</td>
+<td>No incidents yet. Discipline + template land when the first incident does.</td>
+<td>Without structural action, postmortems become theatre</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Threat model + PIA per IntentSpec change</strong></td>
+<td>⚠️</td>
+<td><code>.github/pull_request_template.md</code> includes a STRIDE + LINDDUN + DPIA prompt. PR reviewer enforcement (no automation possible for content quality).</td>
+<td>EU AI Act + GDPR Art. 35 require this for high-risk systems</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Compliance regression tests — one per regulation article</strong></td>
+<td>⚠️</td>
+<td>Tests exist for GDPR Art. 8, FERPA §99.31, EU AI Act Art. 14. <strong>Compliance Coverage Matrix doc pending</strong> — until landed, no automated "claim → test" assertion.</td>
+<td>Marketing claims become falsifiable. Auditors can run them.</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Performance budget + observability budget per endpoint</strong></td>
+<td>✅</td>
+<td><code>.size-limit.cjs</code> per-package gzip budgets; <code>pnpm test:size</code> enforced in CI. <code>pnpm test:bench</code> (vitest bench) + bench-output artifact archived per CI run.</td>
+<td>Compliance products live or die on uptime + latency</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Break-glass production access only, logged + reviewed weekly</strong></td>
+<td>📋</td>
+<td>No production yet.</td>
+<td>Trust story collapses if employees can quietly read customer data</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Sealed mutation path — only <code>writeEvent</code> mutates</strong></td>
+<td>✅</td>
+<td>Custom ESLint rule <code>tallyseal/no-direct-prisma-create</code> in <code>@tallyseal/eslint-config</code> blocks <code>&lt;client&gt;.&lt;model&gt;.{create,update,upsert,delete,createMany,updateMany,deleteMany}()</code> outside writeEvent + prisma-adapter. Exempt token <code>// sealed-mutation-exempt: &lt;reason&gt;</code> counted by CI.</td>
+<td>Architectural invariant: one mutation path; cannot be circumvented under deadline pressure</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Conventional commits + commitlint + husky</strong></td>
+<td>✅</td>
+<td>husky <code>commit-msg</code> hook + commitlint with <code>@commitlint/config-conventional</code>. 100-char header. CI gate via commitlint.</td>
+<td>Tooling derives changelogs, version bumps, audit-trail granularity from commit history</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Branch naming with date suffix</strong></td>
+<td>📋</td>
+<td>Solo on main; not enforced. Re-evaluates when parallel sessions or first hire lands.</td>
+<td>Prevents parallel Claude Code sessions colliding on the same branch name — a silent-corruption risk under multi-agent work</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Version bump per PR (PATCH minimum)</strong></td>
+<td>✅</td>
+<td><code>.github/workflows/version-check.yml</code> blocks merge if <code>packages/*/src/**</code> or <code>packages/*/migrations/**</code> changed without bumping the package's <code>version</code>.</td>
+<td>Every change is small, traceable, reversible; <code>git bisect</code> works; tag-per-PR auto-generates release notes</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Worktree per session for parallel work</strong></td>
+<td>📋</td>
+<td>Solo; not enforced. Re-evaluates when parallel sessions land.</td>
+<td>Eliminates branch-clash between parallel sessions — <code>git checkout</code> in one session silently moves HEAD in the other</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>No ambient authority</strong> (capability-based security discipline)</td>
+<td>✅</td>
+<td>Custom ESLint rule <code>tallyseal/no-ambient-authority</code> flags module-scope <code>process.env.X</code>, module-scope <code>new &lt;Client\|Pool\|Adapter\|Service\|Manager&gt;(...)</code>, any <code>globalThis.X</code>. Exempt token <code>// capability-exempt: &lt;reason&gt;</code> counted by CI.</td>
+<td>Multi-tenant safety becomes structural, not reviewer-dependent. Cross-tenant leaks become impossible-by-construction rather than caught-in-PR. Capability audit logs become litigation gold (Lens 3 legal motion). OEM Platform Edition embeddability requires zero singletons / zero process-globals; this rule pre-empts the retrofit cost.</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>Total functions + exhaustive matching</strong></td>
+<td>✅</td>
+<td>Custom ESLint rule <code>tallyseal/throw-only-typed-errors</code> — throws MUST be <code>throw new &lt;SomeError&gt;(...)</code> constructions, never bare values / strings / objects. Backstopped by tsconfig <code>noFallthroughCasesInSwitch</code> + <code>assertNever</code> discipline in default branches. (<code>@typescript-eslint/switch-exhaustiveness-check</code> available behind type-aware-lint opt-in.)</td>
+<td>Replayability holds under all inputs. Errors are values (<code>Result&lt;T, E&gt;</code>), not surprises. New event kinds / new spec versions become <em>compile errors</em> in every dispatcher, not silent fallthroughs. Standards-grade IntentSpec relies on this — the format's predicate-subset depends on total functions.</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>Throw-only-typed-errors</strong> (concretised #19)</td>
+<td>✅</td>
+<td>Custom ESLint rule <code>tallyseal/throw-only-typed-errors</code>. Throws of bare values / strings / objects rejected at lint time.</td>
+<td>Errors are inspectable, catch-pattern-matchable, audit-bundle-renderable typed instances; bare-value throws break replayability + audit-bundle reconstruction.</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>Fast-lane pre-commit hygiene</strong></td>
+<td>✅</td>
+<td><code>.husky/pre-commit</code> detects doc-only staged changes (<code>.md</code>, <code>.txt</code>, <code>.gitignore</code>, <code>LICENSE</code>, <code>CHANGELOG.md</code>, <code>README.md</code>) and runs prettier-only (~0.5s) on those. Code changes get full prettier + lint + typecheck (~10-15s).</td>
+<td>Trivial doc fixes don't pay the full-pipeline tax; non-trivial changes still get the full gate; signal-clarity preserved via path-pattern detection.</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>Post-commit async test safety net</strong></td>
+<td>✅</td>
+<td><code>.husky/post-commit</code> spawns <code>pnpm test</code> in the background after every commit (full lane OR fast lane); prints <code>❌ ... consider git revert HEAD</code> if tests fail. Skipped during merges / rebases / cherry-picks to avoid noise.</td>
+<td>Fast lane's speed risk is offset by post-hoc verification: any commit that broke tests (incl. trivial doc fixes that referenced moved files, etc.) surfaces immediately. CI on push is the ultimate safety net.</td>
+</tr>
+<tr>
+<td>23</td>
+<td><strong>CRAWCUS spec stays self-contained + brand-neutral</strong></td>
+<td>✅</td>
+<td>The CRAWCUS open-spec content (types, schemas, pure evaluators, hash chain, canonical-JSON, Contract algorithm, compliance manifest schema, readiness predicate) lives in <strong>its own workspace package</strong> at <code>packages/crawcus-spec/</code> (<code>@tallyseal/crawcus-spec</code>). The package has NO <code>@tallyseal/*</code> dependencies, so the TypeScript compiler structurally enforces that spec code cannot import from Tallyseal runtime — any such import fails compilation. Runtime packages (<code>@tallyseal/core</code>, etc.) depend on <code>@tallyseal/crawcus-spec</code> via <code>workspace:*</code>; the direction is always runtime → spec, never the reverse. <strong>Lint rules as defense-in-depth + earlier IDE feedback</strong>: <code>tallyseal/no-runtime-import</code> (blocks any <code>@tallyseal/*</code> import inside <code>packages/crawcus-spec/src/</code>) + <code>tallyseal/no-brand-leak</code> (blocks <code>Tallyseal</code> identifier or string inside <code>packages/crawcus-spec/src/*</code> content per Y10 vendor-neutrality marker; comments exempt). <strong>Phase-2 migrations</strong> (originally flagged as leaks; ✅ closed 2026-05-21): <code>HashChainProof</code> moved from <code>ports/tx-context.ts</code> → <code>@tallyseal/crawcus-spec/event/hash-chain-proof.ts</code> (it's the wire-format shape any conformant runtime emits). <code>AuditBundle</code> wire-format types moved from <code>packages/core/src/audit-bundle/types.ts</code> → <code>@tallyseal/crawcus-spec/audit-bundle/types.ts</code> (the Attestation primitive's wire format; composer stays in core). <code>Projector</code> interface refactored: spec defines generic <code>Projector&lt;TPayload, TCtx&gt;</code> + <code>ProjectorBaseCtx</code> (brand-neutral, no port deps); Tallyseal <code>ProjectorCtx</code> narrows by adding <code>AIPort</code> + <code>PIIPort</code> via TS intersection. All three migrations preserve back-compat through <code>@tallyseal/core</code> barrel re-exports.</td>
+<td>The CRAWCUS spec is the Y10 marker (≥3 independent CRAWCUS-conformant runtimes per <code>00-canon/identity.md</code>); a Tallyseal-coupled spec falsifies that marker on day one of external visibility. With the spec as a real workspace package, the Y1 H2 spin-out (<code>packages/crawcus-spec/</code> → <code>github.com/crawcus/spec</code> repo under <code>@crawcus/spec</code> scope, per decision-log B1.3b) is a <strong>single-step scope rename</strong> — the package boundary already exists; the compiler refuses any drift in the meantime. Every primitive sprint that lands without the boundary enforced would compound drift; this rule eliminates the drift surface entirely.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-ratchet-artifact">The ratchet artifact<a class="headerlink" href="#the-ratchet-artifact" title="Permalink to this section">&para;</a></h2>
+<p><code>docs/RATCHET.md</code> lists current values, updated weekly:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mutation score:          84% (target: ≥80%)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>eval pass-rate:          96.2% (last release: 96.0%)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>branch lifetime p95:     3.2 days (target: &lt;5)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ratchet-exempt count:    7 (last release: 7 — flat)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>p99 latency:             340ms (target: &lt;500ms)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>SBOM new transitive:     2 (reviewed + approved)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>test coverage:           87% (target: ≥80%)
+</span></code></pre></div>
+<p><strong>Numbers can only move one way.</strong> If they move the wrong way, that's a P0 process incident, not a metric to ignore.</p>
+<h2 id="what-this-rules-out">What this rules out<a class="headerlink" href="#what-this-rules-out" title="Permalink to this section">&para;</a></h2>
+<ul>
+<li>"Just this once" exemptions to type strictness</li>
+<li>"We'll add tests later"</li>
+<li>Long-lived feature branches</li>
+<li>Production access without audit trail</li>
+<li>Skipping postmortem on a "small" incident</li>
+<li>Merging without threat model on IntentSpec changes</li>
+<li>Approving SBOM diffs without reading them</li>
+<li>Direct <code>prisma.X.create|update|delete</code> from <code>lib/witness/**</code> — even
+  "just for this one migration"</li>
+<li>Non-conventional commit messages — even for trivial chores</li>
+<li>Branch names without date suffix when parallel sessions exist</li>
+<li>Skipping the PATCH bump on a docs-only or chore-only PR</li>
+<li>Editing from the repo root when another Claude Code session is open</li>
+<li><code>--no-verify</code> to skip a failing hook (fix the underlying issue)</li>
+</ul>
+<h2 id="what-this-requires-from-the-founder">What this requires from the founder<a class="headerlink" href="#what-this-requires-from-the-founder" title="Permalink to this section">&para;</a></h2>
+<ul>
+<li><strong>Hire the first compliance officer in Months 0-3.</strong> They author regulation modules, recruit advisory board, build auditor relationships. Most technical founders skip this; doing so kills the moat.</li>
+<li><strong>Hire the first SRE in Month 4-6.</strong> They own the observability budget + break-glass + uptime ratchet.</li>
+<li><strong>Code review discipline:</strong> 100% PR review, no exceptions, no founder bypass.</li>
+</ul>
+<h2 id="process-policy">Process &gt; policy<a class="headerlink" href="#process-policy" title="Permalink to this section">&para;</a></h2>
+<p>These disciplines work because they're <strong>structural</strong> — encoded in CI, hooks, build scripts — not because they're written in a handbook nobody reads. Anything that depends on employee compliance will erode under deadline pressure. Anything enforced by the build cannot.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Paul Wander + CRAWCUS contributors. Specification text licensed under CC-BY-4.0. Code licensed under Apache-2.0 or MIT (see per-package LICENSE).
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.copy", "content.action.edit", "search.suggest", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  </body>
+</html>

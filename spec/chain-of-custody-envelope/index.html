@@ -1,0 +1,949 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An open specification for cryptographic audit receipts covering both application transactions and AI-inference decisions under one canonical shape.">
+      
+      
+        <meta name="author" content="Paul Wander + CRAWCUS contributors">
+      
+      
+        <link rel="canonical" href="https://tallyseal.org/spec/chain-of-custody-envelope/">
+      
+      
+        <link rel="prev" href="../crawcus-contracts/">
+      
+      
+        <link rel="next" href="../../canon/architecture-primitives/">
+      
+      <link rel="icon" href="../../../branding/crawcus-seal-compact.svg">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>Chain of custody - CRAWCUS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#the-chain-of-custody-envelope-around-the-decisioning-core" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CRAWCUS" class="md-header__button md-logo" aria-label="CRAWCUS" data-md-component="logo">
+      
+  <img src="../../../branding/crawcus-seal-compact.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CRAWCUS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chain of custody
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tallyseal/spec" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tallyseal/spec
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Overview
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../crawcus-format/" class="md-tabs__link md-tabs__link--active">
+        Specification
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../canon/architecture-primitives/" class="md-tabs__link">
+        Canon
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../engineering/ratchet-disciplines/" class="md-tabs__link">
+        Engineering
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CRAWCUS" class="md-nav__button md-logo" aria-label="CRAWCUS" data-md-component="logo">
+      
+  <img src="../../../branding/crawcus-seal-compact.svg" alt="logo">
+
+    </a>
+    CRAWCUS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tallyseal/spec" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tallyseal/spec
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Specification
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Specification
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawcus-format/" class="md-nav__link">
+        Format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crawcus-contracts/" class="md-nav__link">
+        Contracts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Chain of custody
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Chain of custody
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-scope-clause-that-the-next-wave-forces-into-view" class="md-nav__link">
+    The scope clause that the next wave forces into view
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-tallyseal-is" class="md-nav__link">
+    What Tallyseal is
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-this-composes-with-fico-platform" class="md-nav__link">
+    Where this composes with FICO Platform
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-shapes-this-could-take" class="md-nav__link">
+    Three shapes this could take
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-brief-is-and-is-not" class="md-nav__link">
+    What this brief is and is not
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-brief" class="md-nav__link">
+    About this brief
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#glossary" class="md-nav__link">
+    Glossary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Canon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Canon
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../canon/architecture-primitives/" class="md-nav__link">
+        Architecture primitives
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../canon/decision-lens/" class="md-nav__link">
+        Decision lens
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Engineering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Engineering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../engineering/ratchet-disciplines/" class="md-nav__link">
+        Ratchet disciplines
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-scope-clause-that-the-next-wave-forces-into-view" class="md-nav__link">
+    The scope clause that the next wave forces into view
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-tallyseal-is" class="md-nav__link">
+    What Tallyseal is
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-this-composes-with-fico-platform" class="md-nav__link">
+    Where this composes with FICO Platform
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#three-shapes-this-could-take" class="md-nav__link">
+    Three shapes this could take
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-this-brief-is-and-is-not" class="md-nav__link">
+    What this brief is and is not
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#about-this-brief" class="md-nav__link">
+    About this brief
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#glossary" class="md-nav__link">
+    Glossary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/tallyseal/spec/edit/main/docs/spec/chain-of-custody-envelope.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<!--
+SPDX-FileCopyrightText: 2026 Paul Wander + CRAWCUS contributors
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
+<h1 id="the-chain-of-custody-envelope-around-the-decisioning-core">The chain-of-custody envelope around the decisioning core<a class="headerlink" href="#the-chain-of-custody-envelope-around-the-decisioning-core" title="Permalink to this section">&para;</a></h1>
+<p><em>A one-page brief — June 2026.</em></p>
+<hr />
+<p>The regulatory wave hitting automated decisions about people asks one
+question, in one shape: <em>"Show me why this decision about this individual was
+lawful at the moment it was made — on what basis, with what oversight, by
+which model and version, with which consent state, and with the input lineage
+that produced it."</em> EU AI Act Annex III high-risk regime enters enforcement
+2 August 2026. GDPR Article 22 explanations run on a 30-day clock. FRE 901
+and EU evidence rules are being applied to AI outputs for the first time.
+The question is engine-agnostic. <strong>The answer that satisfies a regulator has
+to hold across every decision the customer makes about the individual — not
+only the ones that flowed through one engine.</strong></p>
+<p>FICO has been answering that question at the FICO-engine layer for 25 years
+with a depth no other vendor matches. <em>"Every decision is logged, traced, and
+explained"</em> is not marketing copy when FICO writes it — it is the load-bearing
+discipline of FICO Platform, descending from Scott Zoldi's 1998 explainability
+patents and refined through Blaze Advisor, Strategy Director, Falcon, and
+Analytics Workbench. The FFM line extends it for the generative wave. If the
+customer's decision flows through FICO, the auditor has a clean answer.</p>
+<h2 id="the-scope-clause-that-the-next-wave-forces-into-view">The scope clause that the next wave forces into view<a class="headerlink" href="#the-scope-clause-that-the-next-wave-forces-into-view" title="Permalink to this section">&para;</a></h2>
+<p>The scope, named on FICO's own Operational Data Transparency page, is
+<em>"every execution flowing through FICO Platform."</em> That clause is correct,
+honest, and load-bearing — and the operating reality on the customer side
+is that not every regulated automated decision about the same individual
+flows through FICO Platform.</p>
+<p>A consumer-lending customer scores credit through FICO <strong>and</strong> runs a
+generative onboarding assistant, an LLM-backed dispute triage, a rules
+engine for fee waivers, an HR-eligibility model for collections agent
+assignment, and a human sign-off on adverse-action review. Each of those is
+a regulated automated decision under Article 22, Article 14, GDPR Article 35,
+FCRA, ECOA Reg B, or all of them. None of them flows through FICO Platform.
+The auditor's question does not distinguish: they want the chain of custody
+on the individual, across every decision the institution made.</p>
+<p>This is the gap. Not a FICO defect — a scope clause being met by the world
+moving past it. FICO Platform is the depth player for FICO-engine decisions;
+the customer needs an envelope above every engine they run.</p>
+<h2 id="what-tallyseal-is">What Tallyseal is<a class="headerlink" href="#what-tallyseal-is" title="Permalink to this section">&para;</a></h2>
+<p>Tallyseal is the horizontal, engine-agnostic chain-of-custody runtime that
+sits underneath every automated decision the application makes — LLM call,
+classical ML scorecard, deterministic rules engine, or human sign-off
+layered on any of them — and emits a hash-chained, regulation-typed receipt
+at the moment of determination.</p>
+<p>The mechanism is a fourteen-primitive surface, eight of them load-bearing
+for the chain: <strong>Contract · Receipt · Attestation · Warrant · Consent ·
+Lineage · Disclosure · HumanOversight</strong>. Each is a typed callable, not a
+YAML policy reference: <code>gdpr.art8.minorConsent(opts)</code>, <code>euAct.art14(opts)</code>,
+<code>hipaaSafeHarbor(opts)</code>, <code>ferpa.s9931(opts)</code>. The receipt carries lawful
+basis, consent state, oversight outcome, model and prompt version, input
+lineage, and the output itself, hash-chained for tamper-evidence and
+verifiable offline by any third party.</p>
+<p>The runtime ships MIT under <code>@tallyseal/*</code> on npm; the spec is <strong>CRAWCUS</strong>
+(Contract · Receipt · Attestation · Warrant — Compliance Unified
+Specification), targeting W3C / IEEE / ISO submission. The receipt
+wire-format is byte-compatible with the IETF Acta draft
+(<code>draft-farley-acta-signed-receipts-01</code>) — same Ed25519, same JCS-canonical
+hash-chain envelope — with the regulation-binding semantics that the
+substrate layer does not address layered above. Microsoft Agent Governance
+Toolkit, AWS Cedar, Sigstore Rekor, Pydantic AI, LlamaIndex, LangChain,
+and Vercel AI are aligned at the substrate. Tallyseal is the regulation
+layer on top of that substrate.</p>
+<h2 id="where-this-composes-with-fico-platform">Where this composes with FICO Platform<a class="headerlink" href="#where-this-composes-with-fico-platform" title="Permalink to this section">&para;</a></h2>
+<p>The customer who runs FICO Platform for FICO-engine decisions and Tallyseal
+for the cross-engine envelope gets two artefacts the auditor verifies
+independently:</p>
+<ul>
+<li>FICO's native decision audit, explainability, and lineage for every
+  decision through FICO's engines — unchanged, the system of record at
+  the FICO layer.</li>
+<li>A Tallyseal CRAWCUS receipt for every decision the application made,
+  whatever the engine, including the FICO ones (as cross-engine envelopes
+  pointing into FICO Platform's deeper record), verifiable offline by the
+  auditor's own copy of the CRAWCUS verifier.</li>
+</ul>
+<p>The chain of custody holds across the whole stack. FICO Platform's
+twenty-five years of evidentiary discipline at the FICO layer reaches the
+LLM-driven and bespoke decisions the same customer also has to defend.
+Neither layer competes with the other; the customer gets both, and the
+regulator gets the engine-agnostic envelope that the audit obligation
+actually requires.</p>
+<h2 id="three-shapes-this-could-take">Three shapes this could take<a class="headerlink" href="#three-shapes-this-could-take" title="Permalink to this section">&para;</a></h2>
+<p>Naming the shapes; not asking. The pre-incorporation founder is the
+decision-maker on the Tallyseal side.</p>
+<ul>
+<li><strong>Adapter</strong> — <code>@tallyseal/fico-platform</code> ships open-source against
+  FICO Platform's existing logging surfaces; FICO Platform decisions get
+  the cross-engine envelope for free; no commercial relationship required.</li>
+<li><strong>OEM</strong> — FICO Platform ships Tallyseal under the FICO brand as the
+  cross-engine layer; FICO carries CRAWCUS to its enterprise channel;
+  joint authorship of the W3C / IEEE submission strengthens FICO's
+  standards posture and Tallyseal's vendor-neutrality.</li>
+<li><strong>Acquisition</strong> — Tallyseal folds into FICO; CRAWCUS proceeds under
+  joint authorship; the cross-engine layer becomes part of FICO Platform
+  the way explainability did in 1998.</li>
+</ul>
+<h2 id="what-this-brief-is-and-is-not">What this brief is and is not<a class="headerlink" href="#what-this-brief-is-and-is-not" title="Permalink to this section">&para;</a></h2>
+<ul>
+<li>Not a claim that FICO Platform doesn't do explainability or audit. It
+  does, with a depth nothing else in the market touches. The claim is
+  that the scope clause names a clear boundary the regulatory wave is
+  asking the customer to step over.</li>
+<li>Not a substitute for FICO's relationship with the regulator or the
+  Big-4. CRAWCUS aims at W3C / IEEE / ISO precisely because vendor-neutral
+  standards-body adoption is how the receipt format earns admissibility
+  across jurisdictions.</li>
+<li>Not a SaaS competitor. The runtime is MIT-licensed and self-hostable;
+  commercial revenue sits above the OSS in operated services
+  (notary-signed bundles, sector-pack attestations, federation, MGA
+  conformity workflows).</li>
+<li>Not a soft ask for a meeting. If the gap above resonates with what
+  you see in your customer base, the founder welcomes a conversation.
+  Paid engagement; NDA before architecture or customer specifics.</li>
+</ul>
+<h2 id="about-this-brief">About this brief<a class="headerlink" href="#about-this-brief" title="Permalink to this section">&para;</a></h2>
+<p>Distribution: pre-NDA shareable. Tallyseal, Inc. (incorporation pending).
+Paul Wander, founder — paul@thewanders.com. This document contains no
+confidential information.</p>
+<!-- glossary-appendix:start -->
+
+<hr />
+<h2 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permalink to this section">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CRAWCUS</strong></td>
+<td>Contract · Receipt · Attestation · Warrant — Compliance Unified Specification. The open standard authored by Tallyseal; vendor-neutral, MIT-licensed. Lives at @crawcus/<em> npm packages; reference runtime is @tallyseal/</em>.</td>
+</tr>
+<tr>
+<td><strong>EU AI Act</strong></td>
+<td>Regulation (EU) 2024/1689 — entered force August 2024. Risk-tiered (prohibited / high-risk / limited / minimal); high-risk uses listed in Annex III; Article 14 mandates human oversight.</td>
+</tr>
+<tr>
+<td><strong>GDPR</strong></td>
+<td>General Data Protection Regulation (EU 2016/679) — entered force May 2018. Article 22 governs solely-automated decisions; Article 35 mandates DPIAs for high-risk processing.</td>
+</tr>
+<tr>
+<td><strong>IEEE</strong></td>
+<td>Institute of Electrical and Electronics Engineers — standards body Tallyseal targets for the CRAWCUS open-spec spin-out.</td>
+</tr>
+<tr>
+<td><strong>ISO</strong></td>
+<td>International Organization for Standardization — publisher of ISO/IEC 27001 (information security) and ISO/IEC 42001 (AI management systems).</td>
+</tr>
+<tr>
+<td><strong>LLM</strong></td>
+<td>Large Language Model — generative AI model (GPT-class, Claude-class) trained on broad text corpora.</td>
+</tr>
+<tr>
+<td><strong>MGA</strong></td>
+<td>Managing General Agent — an insurance intermediary with delegated underwriting authority on behalf of a carrier.</td>
+</tr>
+<tr>
+<td><strong>MIT</strong></td>
+<td>MIT License — a permissive open-source licence; both @crawcus/<em> (spec) and @tallyseal/</em> (reference runtime) ship MIT.</td>
+</tr>
+<tr>
+<td><strong>ML</strong></td>
+<td>Machine Learning — broader category that includes LLMs, classical scorecards, and other model classes.</td>
+</tr>
+<tr>
+<td><strong>NDA</strong></td>
+<td>Non-Disclosure Agreement.</td>
+</tr>
+<tr>
+<td><strong>OEM</strong></td>
+<td>Original Equipment Manufacturer — used here for white-label / re-badged distribution arrangements.</td>
+</tr>
+<tr>
+<td><strong>OSS</strong></td>
+<td>Open Source Software.</td>
+</tr>
+<tr>
+<td><strong>W3C</strong></td>
+<td>World Wide Web Consortium — standards body Tallyseal targets for the CRAWCUS open-spec spin-out alongside IEEE.</td>
+</tr>
+<tr>
+<td><strong>Warrant</strong></td>
+<td>One of CRAWCUS's 14 primitives — the explicit, machine-readable legal-basis declaration paired with each Contract (e.g. GDPR Article 6(1)(b), FERPA §99.31(a)(1)).</td>
+</tr>
+</tbody>
+</table>
+<p><em>Generated from <code>docs/notebook/09-operating/glossary.csv</code> — edit there, then run <code>node tools/render-glossary.mjs &lt;file&gt;</code> to refresh.</em></p>
+<!-- glossary-appendix:end -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Paul Wander + CRAWCUS contributors. Specification text licensed under CC-BY-4.0. Code licensed under Apache-2.0 or MIT (see per-package LICENSE).
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.copy", "content.action.edit", "search.suggest", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+    
+  </body>
+</html>
