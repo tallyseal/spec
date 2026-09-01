@@ -1,0 +1,21 @@
+crawcus-flower
+
+CRAWCUS reference client for the Flower federated-learning framework.
+
+Copyright 2026 Paul Wander + CRAWCUS contributors.
+Licensed under the Apache License, Version 2.0.
+
+Tallyseal is a trading name of Wanderco Ltd.
+Commercial enquiries: <TBD — set before first public release>
+
+This product depends on third-party software, each under its own licence:
+
+- jcs (RFC 8785 JSON Canonical Serialization for Python) — Apache-2.0
+  https://pypi.org/project/jcs/
+
+- flwr (Flower federated-learning framework) — Apache-2.0
+  https://flower.ai
+  https://github.com/adap/flower
+
+The CRAWCUS specification is authored and maintained openly. See:
+  https://tallyseal.org/spec

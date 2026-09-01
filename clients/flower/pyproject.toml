@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "crawcus-flower"
+version = "0.1.0a0"
+description = "CRAWCUS audit receipts for Flower federated-learning clients"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "CRAWCUS contributors" }]
+keywords = ["flower", "federated-learning", "audit", "crawcus", "receipt", "compliance", "gdpr", "eu-ai-act"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "jcs>=0.2.1",
+    "flwr>=1.7.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.5"]
+
+[project.urls]
+Homepage = "https://tallyseal.org/spec"
+Repository = "https://github.com/tallyseal/crawcus"
+Issues = "https://github.com/tallyseal/crawcus/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/crawcus_flower"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
