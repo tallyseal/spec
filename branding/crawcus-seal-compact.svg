@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1200" viewBox="0 0 1100 1200" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#002785"/>
+    </marker>
+  </defs>
+
+  <rect width="1100" height="1200" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="550" y="48" text-anchor="middle" font-size="28" font-weight="700" fill="#0038B8">THE CRAWCUS SEAL</text>
+  <text x="550" y="74" text-anchor="middle" font-size="13" fill="#5A6580" font-style="italic">Four sealed stations on one steel core · Contract · Receipt · Attestation · Warrant</text>
+
+  <!-- Column headers -->
+  <text x="110" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#0038B8" letter-spacing="2">WHY THIS RAIL EXISTS</text>
+  <text x="340" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#0038B8" letter-spacing="2">INPUTS</text>
+  <text x="710" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#0038B8" letter-spacing="2">OUTPUTS</text>
+  <text x="960" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#0038B8" letter-spacing="2">BUSINESS VALUE</text>
+
+  <!-- WHY panel (pressure box: accent-tint) -->
+  <rect x="20" y="138" width="180" height="942" fill="#FFF8E6" stroke="#F2C25C" stroke-width="1" rx="4"/>
+
+  <!-- VALUE panel (primary-tint) -->
+  <rect x="840" y="138" width="240" height="942" fill="#EEF2FB" stroke="#B8C5E8" stroke-width="1" rx="4"/>
+
+  <!-- Steel core (drift-grey, single thick wire threading the four stations) -->
+  <line x1="525" y1="160" x2="525" y2="200" stroke="#94A0B8" stroke-width="7" stroke-linecap="round"/>
+  <line x1="525" y1="280" x2="525" y2="440" stroke="#94A0B8" stroke-width="7" stroke-linecap="round"/>
+  <line x1="525" y1="520" x2="525" y2="680" stroke="#94A0B8" stroke-width="7" stroke-linecap="round"/>
+  <!-- Gold core segment between A and W — audit-grade seal moment -->
+  <line x1="525" y1="760" x2="525" y2="920" stroke="#E0A526" stroke-width="8" stroke-linecap="round"/>
+  <!-- Steel core tail below W -->
+  <line x1="525" y1="1000" x2="525" y2="1060" stroke="#94A0B8" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- WHY items (7) -->
+  <g>
+    <text x="35" y="175" font-size="12" font-weight="700" fill="#0F1A33">Regulators demand</text>
+    <text x="35" y="190" font-size="12" font-weight="700" fill="#0F1A33">chain-of-custody</text>
+    <text x="35" y="207" font-size="11" fill="#0F1A33">on every AI decision —</text>
+    <text x="35" y="221" font-size="11" fill="#0F1A33">EU AI Act, GDPR Art.22,</text>
+    <text x="35" y="235" font-size="11" fill="#0F1A33">FERPA, HIPAA, state laws</text>
+    <text x="35" y="254" font-size="10" font-style="italic" fill="#5A6580">DPO · GC · Head of Compliance</text>
+  </g>
+
+  <g>
+    <text x="35" y="305" font-size="12" font-weight="700" fill="#0F1A33">Auditor evidence asks</text>
+    <text x="35" y="322" font-size="11" fill="#0F1A33">used to take 6 weeks of</text>
+    <text x="35" y="336" font-size="11" fill="#0F1A33">hand-collation</text>
+    <text x="35" y="355" font-size="10" font-style="italic" fill="#5A6580">Eng leadership · Audit · CFO</text>
+  </g>
+
+  <g>
+    <text x="35" y="430" font-size="12" font-weight="700" fill="#0F1A33">Insurance won't bind</text>
+    <text x="35" y="447" font-size="11" fill="#0F1A33">without auditable receipts</text>
+    <text x="35" y="461" font-size="11" fill="#0F1A33">of what actually happened</text>
+    <text x="35" y="480" font-size="10" font-style="italic" fill="#5A6580">CFO · Risk · Board</text>
+  </g>
+
+  <g>
+    <text x="35" y="555" font-size="12" font-weight="700" fill="#0F1A33">"Why did the AI decide</text>
+    <text x="35" y="571" font-size="12" font-weight="700" fill="#0F1A33">that about my kid?"</text>
+    <text x="35" y="588" font-size="11" fill="#0F1A33">needs a real, sealable</text>
+    <text x="35" y="602" font-size="11" fill="#0F1A33">answer in plain English</text>
+    <text x="35" y="621" font-size="10" font-style="italic" fill="#5A6580">Customer · CS · PR</text>
+  </g>
+
+  <g>
+    <text x="35" y="685" font-size="12" font-weight="700" fill="#0F1A33">EU AI Act Art.14</text>
+    <text x="35" y="702" font-size="11" fill="#0F1A33">mandates "effective</text>
+    <text x="35" y="716" font-size="11" fill="#0F1A33">oversight" by a natural</text>
+    <text x="35" y="730" font-size="11" fill="#0F1A33">person — machineable</text>
+    <text x="35" y="749" font-size="10" font-style="italic" fill="#5A6580">CTO · Product · GC</text>
+  </g>
+
+  <g>
+    <text x="35" y="815" font-size="12" font-weight="700" fill="#0F1A33">Bespoke forensics</text>
+    <text x="35" y="831" font-size="12" font-weight="700" fill="#0F1A33">burns the eng team</text>
+    <text x="35" y="848" font-size="11" fill="#0F1A33">— without a rail every</text>
+    <text x="35" y="862" font-size="11" fill="#0F1A33">ask is one-off discovery</text>
+    <text x="35" y="881" font-size="10" font-style="italic" fill="#5A6580">Eng leadership · On-call</text>
+  </g>
+
+  <g>
+    <text x="35" y="965" font-size="12" font-weight="700" fill="#0F1A33">The rail IS the seal</text>
+    <text x="35" y="982" font-size="11" fill="#0F1A33">on every AI decision —</text>
+    <text x="35" y="996" font-size="11" fill="#0F1A33">the product IS the audit</text>
+    <text x="35" y="1015" font-size="10" font-style="italic" fill="#5A6580">CEO · Brand</text>
+  </g>
+
+  <!-- VALUE items (10) -->
+  <g>
+    <text x="855" y="175" font-size="12" font-weight="700" fill="#0F1A33">"Prove it" → one bundle hash</text>
+    <text x="855" y="191" font-size="11" fill="#0F1A33">not a 6-week discovery sprint</text>
+    <text x="855" y="210" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~240 eng-hrs saved / probe</text>
+  </g>
+
+  <g>
+    <text x="855" y="267" font-size="12" font-weight="700" fill="#0F1A33">Auditor day-3 finding</text>
+    <text x="855" y="283" font-size="12" font-weight="700" fill="#0F1A33">→ day-1 reassurance</text>
+    <text x="855" y="302" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~$80k audit-fee cut / yr</text>
+  </g>
+
+  <g>
+    <text x="855" y="359" font-size="12" font-weight="700" fill="#0F1A33">DSAR / Art.15 in 30 sec,</text>
+    <text x="855" y="375" font-size="12" font-weight="700" fill="#0F1A33">not 30 days</text>
+    <text x="855" y="394" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~$50k legal-ops / 100 DSARs</text>
+  </g>
+
+  <g>
+    <text x="855" y="451" font-size="12" font-weight="700" fill="#0F1A33">Insurance underwriter binds</text>
+    <text x="855" y="467" font-size="11" fill="#0F1A33">— receipts legible to actuaries</text>
+    <text x="855" y="486" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~30-50% AI-liability premium cut</text>
+  </g>
+
+  <g>
+    <text x="855" y="543" font-size="12" font-weight="700" fill="#0F1A33">GDPR Art.83 cap →</text>
+    <text x="855" y="559" font-size="12" font-weight="700" fill="#0F1A33">"here's the bundle, signed"</text>
+    <text x="855" y="578" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">up to €20M (4% global rev) avoided</text>
+  </g>
+
+  <g>
+    <text x="855" y="635" font-size="12" font-weight="700" fill="#0F1A33">FERPA federal-funding</text>
+    <text x="855" y="651" font-size="12" font-weight="700" fill="#0F1A33">loss avoided</text>
+    <text x="855" y="670" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">full federal contract preserved</text>
+  </g>
+
+  <g>
+    <text x="855" y="727" font-size="12" font-weight="700" fill="#0F1A33">HIPAA $1,500-per-record</text>
+    <text x="855" y="743" font-size="12" font-weight="700" fill="#0F1A33">penalty avoided</text>
+    <text x="855" y="762" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~$1.5M / 1,000-record incident</text>
+  </g>
+
+  <g>
+    <text x="855" y="819" font-size="12" font-weight="700" fill="#0F1A33">EU AI Act Art.85</text>
+    <text x="855" y="835" font-size="12" font-weight="700" fill="#0F1A33">class action neutralised</text>
+    <text x="855" y="854" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~$5-50M settlement avoided</text>
+  </g>
+
+  <g>
+    <text x="855" y="911" font-size="12" font-weight="700" fill="#0F1A33">Plaintiff sees signed chain</text>
+    <text x="855" y="927" font-size="12" font-weight="700" fill="#0F1A33">— settles, not litigates</text>
+    <text x="855" y="946" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">~$2-10M litigation cost avoided</text>
+  </g>
+
+  <g>
+    <text x="855" y="1005" font-size="12" font-weight="700" fill="#0F1A33">Parent question answered</text>
+    <text x="855" y="1021" font-size="12" font-weight="700" fill="#0F1A33">in plain language</text>
+    <text x="855" y="1038" font-size="11" fill="#0F1A33">— the seal IS the story</text>
+    <text x="855" y="1057" font-size="10" font-weight="700" font-style="italic" fill="#E0A526">NPS +15-30 · churn -5-10%</text>
+  </g>
+
+  <!-- Station 1: CONTRACT at y=240 -->
+  <g>
+    <text x="460" y="211" text-anchor="end" font-size="12" fill="#0F1A33">GDPR Art.8 (minors)</text>
+    <line x1="465" y1="207" x2="482" y2="207" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="233" text-anchor="end" font-size="12" fill="#0F1A33">FERPA §99.31</text>
+    <line x1="465" y1="229" x2="482" y2="229" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="255" text-anchor="end" font-size="12" fill="#0F1A33">EU AI Act Art.14</text>
+    <line x1="465" y1="251" x2="482" y2="251" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="277" text-anchor="end" font-size="12" fill="#0F1A33">HIPAA §164.502</text>
+    <line x1="465" y1="273" x2="482" y2="273" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <circle cx="525" cy="240" r="40" fill="#0038B8" stroke="#002785" stroke-width="2"/>
+    <text x="525" y="253" text-anchor="middle" font-size="36" font-weight="700" fill="#FFFFFF">C</text>
+    <text x="525" y="300" text-anchor="middle" font-size="13" font-weight="700" fill="#0038B8" letter-spacing="2">CONTRACT</text>
+
+    <line x1="568" y1="207" x2="585" y2="207" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="211" font-size="12" fill="#0F1A33">Typed pre / inv / post</text>
+    <line x1="568" y1="229" x2="585" y2="229" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="233" font-size="12" fill="#0F1A33">Allowed-action set</text>
+    <line x1="568" y1="251" x2="585" y2="251" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="255" font-size="12" fill="#0F1A33">PII redaction policy</text>
+    <line x1="568" y1="273" x2="585" y2="273" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="277" font-size="12" fill="#0F1A33">Region routing rules</text>
+  </g>
+
+  <!-- Station 2: RECEIPT at y=480 -->
+  <g>
+    <text x="460" y="451" text-anchor="end" font-size="12" fill="#0F1A33">Model + version</text>
+    <line x1="465" y1="447" x2="482" y2="447" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="473" text-anchor="end" font-size="12" fill="#0F1A33">Prompt + system</text>
+    <line x1="465" y1="469" x2="482" y2="469" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="495" text-anchor="end" font-size="12" fill="#0F1A33">Tool calls + results</text>
+    <line x1="465" y1="491" x2="482" y2="491" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="517" text-anchor="end" font-size="12" fill="#0F1A33">Response + tokens</text>
+    <line x1="465" y1="513" x2="482" y2="513" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <circle cx="525" cy="480" r="40" fill="#0038B8" stroke="#002785" stroke-width="2"/>
+    <text x="525" y="493" text-anchor="middle" font-size="36" font-weight="700" fill="#FFFFFF">R</text>
+    <text x="525" y="540" text-anchor="middle" font-size="13" font-weight="700" fill="#0038B8" letter-spacing="2">RECEIPT</text>
+
+    <line x1="568" y1="447" x2="585" y2="447" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="451" font-size="12" fill="#0F1A33">Hashed Receipt entry</text>
+    <line x1="568" y1="469" x2="585" y2="469" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="473" font-size="12" fill="#0F1A33">Chain pointer (prev-hash)</text>
+    <line x1="568" y1="491" x2="585" y2="491" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="495" font-size="12" fill="#0F1A33">Canonical-JSON record</text>
+    <line x1="568" y1="513" x2="585" y2="513" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="517" font-size="12" fill="#0F1A33">Append-only ledger row</text>
+  </g>
+
+  <!-- Station 3: ATTESTATION at y=720 -->
+  <g>
+    <text x="460" y="691" text-anchor="end" font-size="12" fill="#0F1A33">Receipt-chain range</text>
+    <line x1="465" y1="687" x2="482" y2="687" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="713" text-anchor="end" font-size="12" fill="#0F1A33">Auditor keys</text>
+    <line x1="465" y1="709" x2="482" y2="709" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="735" text-anchor="end" font-size="12" fill="#0F1A33">Sector pack (FERPA / HIPAA)</text>
+    <line x1="465" y1="731" x2="482" y2="731" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="757" text-anchor="end" font-size="12" fill="#0F1A33">Notary timestamp</text>
+    <line x1="465" y1="753" x2="482" y2="753" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <circle cx="525" cy="720" r="40" fill="#0038B8" stroke="#002785" stroke-width="2"/>
+    <text x="525" y="733" text-anchor="middle" font-size="36" font-weight="700" fill="#FFFFFF">A</text>
+    <text x="525" y="780" text-anchor="middle" font-size="13" font-weight="700" fill="#0038B8" letter-spacing="2">ATTESTATION</text>
+
+    <line x1="568" y1="687" x2="585" y2="687" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="691" font-size="12" fill="#0F1A33">Signed Attestation bundle</text>
+    <line x1="568" y1="709" x2="585" y2="709" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="713" font-size="12" fill="#0F1A33">DSAR-ready export</text>
+    <line x1="568" y1="731" x2="585" y2="731" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="735" font-size="12" fill="#0F1A33">Regulator-submittable artefact</text>
+    <line x1="568" y1="753" x2="585" y2="753" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="757" font-size="12" fill="#0F1A33">Insurance-eligible proof</text>
+  </g>
+
+  <!-- Station 4: WARRANT at y=960 -->
+  <g>
+    <text x="460" y="931" text-anchor="end" font-size="12" fill="#0F1A33">Human consent (Art.8)</text>
+    <line x1="465" y1="927" x2="482" y2="927" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="953" text-anchor="end" font-size="12" fill="#0F1A33">Override / approval</text>
+    <line x1="465" y1="949" x2="482" y2="949" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="975" text-anchor="end" font-size="12" fill="#0F1A33">Educator sign-off</text>
+    <line x1="465" y1="971" x2="482" y2="971" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="460" y="997" text-anchor="end" font-size="12" fill="#0F1A33">Risk-tier escalation</text>
+    <line x1="465" y1="993" x2="482" y2="993" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <circle cx="525" cy="960" r="40" fill="#0038B8" stroke="#002785" stroke-width="2"/>
+    <text x="525" y="973" text-anchor="middle" font-size="36" font-weight="700" fill="#FFFFFF">W</text>
+    <text x="525" y="1020" text-anchor="middle" font-size="13" font-weight="700" fill="#0038B8" letter-spacing="2">WARRANT</text>
+
+    <line x1="568" y1="927" x2="585" y2="927" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="931" font-size="12" fill="#0F1A33">Signed Warrant entry</text>
+    <line x1="568" y1="949" x2="585" y2="949" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="953" font-size="12" fill="#0F1A33">Chain-of-custody record</text>
+    <line x1="568" y1="971" x2="585" y2="971" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="975" font-size="12" fill="#0F1A33">Override audit trail</text>
+    <line x1="568" y1="993" x2="585" y2="993" stroke="#002785" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="590" y="997" font-size="12" fill="#0F1A33">Human-loop evidence</text>
+  </g>
+
+  <!-- Footer -->
+  <line x1="220" y1="1110" x2="820" y2="1110" stroke="#94A0B8" stroke-width="1"/>
+  <text x="520" y="1140" text-anchor="middle" font-size="13" font-style="italic" fill="#5A6580">Every link in the chain = one Receipt the regulator can ask for by hash.</text>
+  <text x="520" y="1162" text-anchor="middle" font-size="13" font-weight="700" fill="#0038B8">The seal is the product. The chain is the moat.</text>
+</svg>
