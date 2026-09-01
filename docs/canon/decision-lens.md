@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Paul Wander + CRAWCUS contributors
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Decision lens — the three-lens test
 
 > **Every product/strategy/scope/architecture/feature decision goes

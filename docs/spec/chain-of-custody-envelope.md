@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Paul Wander + CRAWCUS contributors
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # The chain-of-custody envelope around the decisioning core
 
 *A one-page brief — June 2026.*

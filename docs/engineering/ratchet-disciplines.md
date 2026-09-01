@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 Paul Wander + CRAWCUS contributors
+SPDX-License-Identifier: CC-BY-4.0
+-->
+
 # Engineering ratchet disciplines
 
 > A ratchet has one direction. Once installed, the bar only rises.
